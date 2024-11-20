@@ -18,12 +18,11 @@ public class WordFrequencyGame {
     public static final String linebreak="\n";
     public static final int count=1;
     public String getResult(String inputStr){
-        if (inputStr.split("\\s+").length==1) {
+        if (inputStr.split(splitDiagonal).length==1) {
             return inputStr + " 1";
         }
 
             try {
-
                 //split the input string with 1 to n pieces of spaces
                 String[] arr = inputStr.split(splitDiagonal);
 
@@ -54,7 +53,7 @@ public class WordFrequencyGame {
             } catch (Exception e) {
 
 
-                return "Calculate Error";
+                return e.toString();
             }
 
     }
@@ -65,9 +64,9 @@ public class WordFrequencyGame {
         for (WordFrequency wordFrequency : wordFrequencyList){
 //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
             if (!map.containsKey(wordFrequency.getValue())){
-                ArrayList arr = new ArrayList<>();
-                arr.add(wordFrequency);
-                map.put(wordFrequency.getValue(), arr);
+                List<WordFrequency> wordList = new ArrayList<>();
+                wordList.add(wordFrequency);
+                map.put(wordFrequency.getValue(), wordList);
             }
 
             else {
