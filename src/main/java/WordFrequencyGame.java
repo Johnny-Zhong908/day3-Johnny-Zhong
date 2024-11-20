@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 //rename,getResult,input,arr,exception msg
 //Steam instead of for loop
@@ -27,28 +24,25 @@ public class WordFrequencyGame {
                 String[] arr = inputStr.split(splitDiagonal);
 
                 List<WordFrequency> wordFrequencyList = new ArrayList<>();
-                for (String s : arr) {
-                    WordFrequency wordFrequency = new WordFrequency(s, count);
-                    wordFrequencyList.add(wordFrequency);
-                }
+                wordFrequencyList=Arrays.stream(arr)
+                        .map(s -> new WordFrequency(s, 1))
+                        .collect(Collectors.toList());
 
                 //get the map for the next step of sizing the same word
                 Map<String, List<WordFrequency>> map =getListMap(wordFrequencyList);
 
-                List<WordFrequency> list = new ArrayList<>();
-                for (Map.Entry<String, List<WordFrequency>> entry : map.entrySet()){
-                    WordFrequency wordFrequency = new WordFrequency(entry.getKey(), entry.getValue().size());
-                    list.add(wordFrequency);
-                }
-                wordFrequencyList = list;
+                List<WordFrequency> frequencyList = new ArrayList<>();
+                frequencyList =map.entrySet().stream()
+                        .map(entry -> new WordFrequency(entry.getKey(), entry.getValue().size()))
+                        .collect(Collectors.toList());
+                wordFrequencyList = frequencyList;
 
                 wordFrequencyList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
                 StringJoiner joiner = new StringJoiner(linebreak);
-                for (WordFrequency w : wordFrequencyList) {
-                    String s = w.getValue() + space +w.getWordCount();
-                    joiner.add(s);
-                }
+                wordFrequencyList.stream()
+                        .map(w -> w.getValue() + space + w.getWordCount())
+                        .forEach(joiner::add);
                 return joiner.toString();
             } catch (Exception e) {
 
