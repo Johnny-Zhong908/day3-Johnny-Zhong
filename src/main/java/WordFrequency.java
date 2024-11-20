@@ -1,8 +1,8 @@
-public class Input {
-    private String value;
-    private int count;
+public class WordFrequency {
+    private final String value;
+    private final int count;
 
-    public Input(String w, int i){
+    public WordFrequency(String w, int i){
         this.value =w;
         this.count =i;
     }
