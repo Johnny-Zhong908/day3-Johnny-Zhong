@@ -10,46 +10,33 @@ import java.util.stream.Collectors;
 //temp field?inputList = list;
 //magic String
 public class WordFrequencyGame {
-    public static final String splitDiagonal="\\s+";
-    public static final String space=" ";
-    public static final String linebreak="\n";
+    public static final String SPLIT_DIAGONAL ="\\s+";
+    public static final String SPACE =" ";
+    public static final String LINE_BREAK ="\n";
     public static final int count=1;
     public String getResult(String inputStr){
-        if (inputStr.split(splitDiagonal).length==1) {
+        if (inputStr.split(SPLIT_DIAGONAL).length==1) {
             return inputStr + " 1";
         }
 
             try {
                 //split the input string with 1 to n pieces of spaces
-                String[] arr = inputStr.split(splitDiagonal);
-
-                List<WordFrequency> wordFrequencyList = new ArrayList<>();
-                wordFrequencyList=Arrays.stream(arr)
-                        .map(s -> new WordFrequency(s, 1))
-                        .collect(Collectors.toList());
-
-                //get the map for the next step of sizing the same word
-                Map<String, List<WordFrequency>> map =getListMap(wordFrequencyList);
-
-                List<WordFrequency> frequencyList = new ArrayList<>();
-                frequencyList =map.entrySet().stream()
-                        .map(entry -> new WordFrequency(entry.getKey(), entry.getValue().size()))
-                        .collect(Collectors.toList());
-                wordFrequencyList = frequencyList;
-                wordFrequencyList.sort(Comparator.comparingInt(WordFrequency::getWordCount).reversed());
-                StringJoiner joiner = new StringJoiner(linebreak);
-                wordFrequencyList.stream()
-                        .map(w -> w.getValue() + space + w.getWordCount())
-                        .forEach(joiner::add);
-                return joiner.toString();
+                String[] Words = inputStr.split(SPLIT_DIAGONAL);
+                List<WordFrequency> wordFrequencyList = createWordFrequencyList(Words);
+                Map<String, List<WordFrequency>> map = getListMap(wordFrequencyList);
+                List<WordFrequency> frequencyList = generateWordFrequencyList(map);
+                return generateResultString(frequencyList);
             } catch (Exception e) {
-
 
                 return e.toString();
             }
 
     }
-
+    private List<WordFrequency> createWordFrequencyList(String[] arr) {
+        return Arrays.stream(arr)
+                .map(s -> new WordFrequency(s, 1))
+                .collect(Collectors.toList());
+    }
 
     private Map<String, List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
         Map<String, List<WordFrequency>> map = new HashMap<>();
@@ -59,6 +46,18 @@ public class WordFrequencyGame {
         return map;
     }
 
+    private List<WordFrequency> generateWordFrequencyList(Map<String, List<WordFrequency>> map) {
+        return map.entrySet().stream()
+                .map(entry -> new WordFrequency(entry.getKey(), entry.getValue().size()))
+                .collect(Collectors.toList());
+    }
+
+    private String generateResultString(List<WordFrequency> wordFrequencyList) {
+        return wordFrequencyList.stream()
+                .sorted(Comparator.comparingInt(WordFrequency::getWordCount).reversed())
+                .map(w -> w.getValue() + SPACE + w.getWordCount())
+                .collect(Collectors.joining(LINE_BREAK));
+    }
 
 
 }
