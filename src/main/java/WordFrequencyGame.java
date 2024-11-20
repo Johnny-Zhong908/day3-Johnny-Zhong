@@ -36,9 +36,7 @@ public class WordFrequencyGame {
                         .map(entry -> new WordFrequency(entry.getKey(), entry.getValue().size()))
                         .collect(Collectors.toList());
                 wordFrequencyList = frequencyList;
-
-                wordFrequencyList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
-
+                wordFrequencyList.sort(Comparator.comparingInt(WordFrequency::getWordCount).reversed());
                 StringJoiner joiner = new StringJoiner(linebreak);
                 wordFrequencyList.stream()
                         .map(w -> w.getValue() + space + w.getWordCount())
