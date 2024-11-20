@@ -13,9 +13,11 @@ import java.util.StringJoiner;
 //temp field?inputList = list;
 //magic String
 public class WordFrequencyGame {
+    public static final String splitDiagonal="\\s+";
+    public static final String space=" ";
+    public static final String linebreak="\n";
+    public static final int count=1;
     public String getResult(String inputStr){
-
-
         if (inputStr.split("\\s+").length==1) {
             return inputStr + " 1";
         }
@@ -23,11 +25,11 @@ public class WordFrequencyGame {
             try {
 
                 //split the input string with 1 to n pieces of spaces
-                String[] arr = inputStr.split("\\s+");
+                String[] arr = inputStr.split(splitDiagonal);
 
                 List<WordFrequency> wordFrequencyList = new ArrayList<>();
                 for (String s : arr) {
-                    WordFrequency wordFrequency = new WordFrequency(s, 1);
+                    WordFrequency wordFrequency = new WordFrequency(s, count);
                     wordFrequencyList.add(wordFrequency);
                 }
 
@@ -43,9 +45,9 @@ public class WordFrequencyGame {
 
                 wordFrequencyList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
-                StringJoiner joiner = new StringJoiner("\n");
+                StringJoiner joiner = new StringJoiner(linebreak);
                 for (WordFrequency w : wordFrequencyList) {
-                    String s = w.getValue() + " " +w.getWordCount();
+                    String s = w.getValue() + space +w.getWordCount();
                     joiner.add(s);
                 }
                 return joiner.toString();
