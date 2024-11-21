@@ -17,7 +17,6 @@ public class WordFrequencyGameTest {
         String expectResult = "the 1\nis 1";
         validate_Input_words_process_to_expected_word(inputStr, expectResult);
     }
-
     @Test
     public void should_process_two_words_with_special_spaces() throws Exception {
         //Given
