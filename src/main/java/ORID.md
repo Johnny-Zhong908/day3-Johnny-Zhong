@@ -1,0 +1,4 @@
+O: Today, I was introduced to concepts and knowledge points such as Stream API, Refactoring, and Concept Map
+R: I feel like I didn't perform well in the course, I'm not proficient enough in the Strem API, I can't make accurate judgments on the parts that need to be refactored, I feel like I didn't draw the knowledge points well when drawing the concept map, and I don't have enough mastery of commonly used shortcut keys
+I: It is due to my lack of experience and sufficient effort in the above content
+D: Need to work hard to make up for homework, strengthen practice in spare time, and be more serious in class
